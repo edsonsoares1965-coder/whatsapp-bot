@@ -1,6 +1,6 @@
 FROM node:20
 
-# Instalar dependências do Chrome
+# Instalar Chromium e dependências
 RUN apt-get update && apt-get install -y \
     chromium \
     libglib2.0-0 \
@@ -20,14 +20,18 @@ RUN apt-get update && apt-get install -y \
     libgtk-3-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Definir variável do Chrome
+# Caminho do Chrome
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
+# Diretório do app
 WORKDIR /app
 
+# Copia dependências
 COPY package*.json ./
 RUN npm install
 
+# Copia tudo
 COPY . .
 
+# Rodar bot
 CMD ["node", "bot.js"]
