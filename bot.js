@@ -1,5 +1,5 @@
 const { Client } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+
 const axios = require('axios');
 
 // 🔥 COLOQUE SEU LINK CERTO AQUI
@@ -14,9 +14,12 @@ const client = new Client({
 });
 
 client.on('qr', qr => {
-    console.log('Escaneie o QR code abaixo:');
-    console.log('QR CODE LINK:');
-console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qr}`);
+    const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`;
+    
+    console.log('\n==============================');
+    console.log('📱 ESCANEIE O QR CODE AQUI:');
+    console.log(qrLink);
+    console.log('==============================\n');
 });
 
 client.on('ready', () => {
