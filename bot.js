@@ -4,12 +4,20 @@ const axios = require('axios');
 // 🔥 SEU WEBHOOK (Google Sheets)
 const WEBHOOK = "https://script.google.com/macros/s/AKfycbx_1bUc8zuoQKMu_sEsaF57H3U68_d69sbeWvKJeMZeyTVRvIggUnnifc1zlRD8s92q/exec";
 
-// Cliente WhatsApp
+// 🚀 CLIENTE WHATSAPP
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: '/usr/bin/chromium', // 👈 CORRIGIDO PARA RAILWAY
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--single-process'
+        ],
         headless: true
     }
 });
@@ -27,6 +35,15 @@ client.on('qr', qr => {
 // ✅ CONECTADO
 client.on('ready', () => {
     console.log('BOT CONECTADO 🚀');
+});
+
+// ❌ ERRO
+client.on('auth_failure', msg => {
+    console.error('❌ Falha na autenticação:', msg);
+});
+
+client.on('disconnected', reason => {
+    console.log('⚠️ Desconectado:', reason);
 });
 
 // 🤖 CAPTURA SA
@@ -53,5 +70,5 @@ client.on('message_create', async msg => {
     }
 });
 
-// 🚀 INICIAR
+// 🚀 INICIAR BOT
 client.initialize();
