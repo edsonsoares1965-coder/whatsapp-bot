@@ -1,9 +1,10 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const axios = require('axios');
 
-// 🔥 SEU WEBHOOK
+// 🔥 SEU WEBHOOK (Google Sheets)
 const WEBHOOK = "https://script.google.com/macros/s/AKfycbx_1bUc8zuoQKMu_sEsaF57H3U68_d69sbeWvKJeMZeyTVRvIggUnnifc1zlRD8s92q/exec";
 
+// Cliente WhatsApp
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -13,7 +14,7 @@ const client = new Client({
     }
 });
 
-// 📱 QR
+// 📱 QR CODE
 client.on('qr', qr => {
     const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`;
     
@@ -52,4 +53,5 @@ client.on('message_create', async msg => {
     }
 });
 
+// 🚀 INICIAR
 client.initialize();
