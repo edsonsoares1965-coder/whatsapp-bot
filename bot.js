@@ -5,7 +5,12 @@ const axios = require('axios');
 // 🔥 COLOQUE SEU LINK CERTO AQUI
 const WEBHOOK = "https://script.google.com/macros/s/AKfycbx_1bUc8zuoQKMu_sEsaF57H3U68_d69sbeWvKJeMZeyTVRvIggUnnifc1zlRD8s92q/exec";
 
-const client = new Client();
+const client = new Client({
+    puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        headless: true
+    }
+});
 
 client.on('qr', qr => {
     console.log('Escaneie o QR code abaixo:');
