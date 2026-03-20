@@ -4,13 +4,12 @@ const axios = require('axios');
 // 🔥 SEU WEBHOOK
 const WEBHOOK = "https://script.google.com/macros/s/AKfycbx_1bUc8zuoQKMu_sEsaF57H3U68_d69sbeWvKJeMZeyTVRvIggUnnifc1zlRD8s92q/exec";
 
-// ✅ CLIENT CORRETO (COM SESSÃO)
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        headless: true // 👈 LOCAL (depois muda pra true no Railway)
+        headless: true
     }
 });
 
