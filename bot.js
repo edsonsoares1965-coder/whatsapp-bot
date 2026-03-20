@@ -7,6 +7,7 @@ const WEBHOOK = "https://script.google.com/macros/s/AKfycbx_1bUc8zuoQKMu_sEsaF57
 
 const client = new Client({
     puppeteer: {
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         headless: true
     }
